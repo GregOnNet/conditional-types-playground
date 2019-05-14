@@ -1,0 +1,11 @@
+{
+  "name": "conditional-types",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Gregor Woiwode <gregor.woiwode@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "rxjs": "^6.5.2",
+    "typescript": "^3.4.5"
+  }
+}

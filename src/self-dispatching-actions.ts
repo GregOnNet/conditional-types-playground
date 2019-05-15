@@ -1,44 +1,25 @@
-export interface State {
-  userNames: string[];
-}
+import {
+  Action,
+  CaseReducer,
+  SelfDispatchingAction,
+  State
+} from './helper-types';
 
-export interface Action<TPayload> {
-  type: string;
-  payload?: TPayload;
-}
-
-declare type CaseReducer<TState, TPayload> = (
-  state: TState,
-  payload?: TPayload
-) => TState;
-
-declare type PlainCaseReducer<TState> = (state: TState) => TState;
-declare type LoadedCaseReducer<TState, TPayload> = (
-  state: TState,
-  payload: TPayload
-) => TState;
-
-declare type SelfDispatchingAction<T> = T extends PlainCaseReducer<infer TState>
-  ? () => void
-  : T extends LoadedCaseReducer<infer _TState, infer TPayload>
-  ? (payload: TPayload) => void
-  : never;
-
-export const store = { dispatch: (_action: Action<unknown>) => {} };
-
-export function addUserName(state: State, payload: string): State {
+export function _addUserName(state: State, payload: string): State {
   return {
     ...state,
     userNames: [...state.userNames, payload]
   };
 }
 
-export function removeAll(state: State): State {
+export function _removeAllUserNames(state: State): State {
   return {
     ...state,
     userNames: []
   };
 }
+
+export const store = { dispatch: (_action: Action<unknown>) => {} };
 
 export function createSelfDispatchingAction<T extends CaseReducer<any, any>>(
   type: string,
@@ -57,8 +38,13 @@ export function createSelfDispatchingAction<T extends CaseReducer<any, any>>(
   return dispatchingAction as any;
 }
 
-const addUser = createSelfDispatchingAction('Add User Name', addUserName);
-const removeAllUsers = createSelfDispatchingAction(
-  'Remove All User Names',
-  removeAll
+// Usage
+const addUserName = createSelfDispatchingAction(
+  '[Users] Add user name',
+  _addUserName
+);
+
+const removeAllUserNames = createSelfDispatchingAction(
+  '[Users] Remove all user names',
+  _removeAllUserNames
 );

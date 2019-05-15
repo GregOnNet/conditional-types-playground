@@ -3,7 +3,7 @@ import { expecter } from 'ts-snippet';
 describe('upperCase', () => {
   const expectSnippet = expecter(
     code => `
-    import { upperCase } from './src/introduction';
+    import { upperCase } from './src/upper-case';
 
     ${code}
   `,

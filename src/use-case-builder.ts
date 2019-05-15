@@ -9,11 +9,9 @@ type FunctionPropertyNames<T> = {
 type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
 type FunctionProperties<T> = Pick<T, FunctionPropertyNames<T>>;
 
-type other<T> = {
-  [K in keyof T]: Exclude<T[K], Function>
-} 
+type other<T> = { [K in keyof T]: Exclude<T[K], Function> };
 
-export function create<T extends new (...args) => InstanceType<T>>(
+export function create<T extends new (...args: unknown[]) => InstanceType<T>>(
   token: T,
   defaults?: Partial<other<InstanceType<T>>>,
   mocks?: Partial<FunctionProperties<InstanceType<T>>>
@@ -24,7 +22,7 @@ export function create<T extends new (...args) => InstanceType<T>>(
 }
 
 class Meetup {
-  participants: string[];
+  participants: string[] = [];
 
   addOne(name: string): void {
     this.participants = [...this.participants, name];
@@ -33,8 +31,6 @@ class Meetup {
 
 const meetup = create(Meetup);
 
+type otherValue = other<Meetup>;
 
-
-type otherValue = other<Meetup>
-
-type a = Exclude<keyof Meetup, (...args) => void>
+type a = Exclude<keyof Meetup, (...args: unknown[]) => void>;

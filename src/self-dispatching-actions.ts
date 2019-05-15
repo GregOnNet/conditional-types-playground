@@ -5,6 +5,7 @@ import {
   State
 } from './helper-types';
 
+// addUserName('@GregOnNet')
 export function _addUserName(state: State, payload: string): State {
   return {
     ...state,
@@ -12,6 +13,7 @@ export function _addUserName(state: State, payload: string): State {
   };
 }
 
+// removeAllUserNames()
 export function _removeAllUserNames(state: State): State {
   return {
     ...state,

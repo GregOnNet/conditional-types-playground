@@ -26,7 +26,7 @@ export const store = { dispatch: (_action: Action<unknown>) => {} };
 export function createSelfDispatchingAction<T extends CaseReducer<any, any>>(
   type: string,
   caseReducer: T
-): SelfDispatchingAction<T> & { caseReducer: T } {
+) {
   const dispatchingAction = (payload: unknown) => {
     if (payload) {
       store.dispatch({ type, payload });

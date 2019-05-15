@@ -10,11 +10,15 @@
  *
  * @param text characters being upper cased
  */
-declare type StringOrNull<T> = T extends string ? string : null;
+declare type StringOrNull<T> = T extends string
+  ? string
+  : T extends null
+  ? null
+  : never;
 
 export function upperCase<T extends string | null>(text: T): StringOrNull<T>;
 export function upperCase(text: string | null): string | null {
-  if (text) {
+  if (typeof text === 'string') {
     return text.toUpperCase();
   }
 
@@ -29,4 +33,11 @@ upperCase(null);
 
 // Union
 let maybe: string | null = null as any;
-const result = upperCase(maybe);
+upperCase(maybe);
+
+// Manual Debugging
+// declare type isString = StringOrNull<string>;
+// declare type isNull = StringOrNull<null>;
+// declare type isStringOrNull = StringOrNull<string | null>;
+// declare type isStringOrNumber = StringOrNull<string | number>;
+// declare type isNumber = StringOrNull<number>;

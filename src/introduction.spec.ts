@@ -12,21 +12,34 @@ describe('upperCase', () => {
     }
   );
 
-  it('should compile', () => {
-    expectSnippet(
-      `
-      let maybe: string | null = null as any;
-      const result = upperCase(maybe);
-      `
-    ).toSucceed();
+  describe('union type support', () => {
+    it('should compile', () => {
+      expectSnippet(
+        `
+        let maybe: string | null = null as any;
+        const result = upperCase(maybe);
+        `
+      ).toSucceed();
+    });
+
+    it('should infer union type', () => {
+      expectSnippet(
+        `
+        let maybe: string | null = null as any;
+        const result = upperCase(maybe);
+        `
+      ).toInfer('result', 'string|null');
+    });
   });
 
-  it('should support union type', () => {
-    expectSnippet(
-      `
-      let maybe: string | null = null as any;
-      const result = upperCase(maybe);
-      `
-    ).toInfer('result', 'string|null');
+  describe('number', () => {
+    it('should not compile', () => {
+      expectSnippet(
+        `
+        const zero = 0;
+        const result = upperCase(zero);
+        `
+      ).toFail();
+    });
   });
 });

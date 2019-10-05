@@ -4,12 +4,9 @@ describe('upperCase', () => {
   const expectSnippet = expecter(
     code => `
     import { upperCase } from './src/upper-case';
-
     ${code}
   `,
-    {
-      strict: true
-    }
+    { strict: true }
   );
 
   describe('union type support', () => {
@@ -33,7 +30,7 @@ describe('upperCase', () => {
   });
 
   describe('number', () => {
-    it('should not compile', () => {
+    it('should not allow numbers', () => {
       expectSnippet(
         `
         const zero = 0;

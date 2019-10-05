@@ -10,3 +10,5 @@ export function upperCase(text: any): any {
 const a = upperCase('').toLocaleLowerCase();
 const b = upperCase(null);
 const c = upperCase(null as string | null);
+// const d = upperCase(0);
+// if (d instanceof Object) {}

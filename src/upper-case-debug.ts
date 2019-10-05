@@ -1,4 +1,4 @@
-// import { StringOrNull } from './upper-case.ts';
+// import { StringOrNull } from './upper-case';
 
 // declare type isString = StringOrNull<string>;
 // declare type isNull = StringOrNull<null>;
